@@ -1,0 +1,70 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_rectangle"
+    >
+
+    <LinearLayout
+        android:id="@+id/tabHomePage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgHomePage"
+            android:layout_width="@dimen/activity_main_tab_dimen"
+            android:layout_height="@dimen/activity_main_tab_dimen"
+            />
+
+        <TextView
+            android:id="@+id/textHomePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="首页"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tabSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_width="@dimen/activity_main_tab_dimen"
+            android:layout_height="@dimen/activity_main_tab_dimen"
+            />
+
+        <TextView
+            android:id="@+id/textSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发现"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tabPerson"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgPerson"
+            android:layout_width="@dimen/activity_main_tab_dimen"
+            android:layout_height="@dimen/activity_main_tab_dimen"
+            />
+
+        <TextView
+            android:id="@+id/textPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的"/>
+    </LinearLayout>
+</LinearLayout>

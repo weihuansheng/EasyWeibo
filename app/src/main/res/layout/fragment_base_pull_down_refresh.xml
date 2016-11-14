@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <com.microwei.easyweibo.view.customview.CustomPullDownRefresh
+        android:id="@+id/fragmentHomePagecustomPullDownRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/pull_down_head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <com.microwei.easyweibo.view.customview.CustomListView
+            android:id="@+id/mCustomBaseListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.microwei.easyweibo.view.customview.CustomPullDownRefresh>
+    <TextView
+        android:id="@+id/internetFailView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="网络连接失败,下拉刷新试试"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:id="@+id/internetLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        >
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在加载..."
+            />
+    </LinearLayout>
+</FrameLayout>

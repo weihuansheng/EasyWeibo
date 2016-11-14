@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    >
+    <EditText
+        android:id="@+id/editTextWriteWeibo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="写微博..."
+        android:background="@color/color_white"
+        android:textColor="@color/color_black"
+        android:gravity="top"
+        />
+    <Button
+        android:id="@+id/buttonSendWeibo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="发送"
+        android:background="@color/color_yellow_dark"
+        android:textColor="@color/color_white"/>
+</RelativeLayout>
+

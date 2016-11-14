@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.BaseActivity"
+    android:background="@color/color_white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_yellow_dark">
+        <LinearLayout
+            android:id="@+id/buttonReturn"
+            android:layout_width="50dp"
+            android:layout_height="70dp">
+            <Button
+                android:layout_width="11dp"
+                android:layout_height="19dp"
+                android:background="@drawable/button_return_img"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/headTextView"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/top_text_size"
+            android:textColor="@color/color_white"/>
+    </RelativeLayout>
+</LinearLayout>

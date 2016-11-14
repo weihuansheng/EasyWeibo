@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/weibo_list_padding"
+    android:background="@drawable/selector"
+    android:clickable="true"
+    >
+<com.facebook.drawee.view.SimpleDraweeView
+    android:id="@+id/fansProfileImg"
+    android:layout_width="@dimen/profile_img_dimen"
+    android:layout_height="@dimen/profile_img_dimen"
+    fresco:placeholderImage="@drawable/default_img"
+    fresco:roundAsCircle="true"/>
+    <TextView
+        android:id="@+id/fansName"
+        android:layout_toRightOf="@+id/fansProfileImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingLeft="8dp"
+        android:textColor="@color/color_black"
+        />
+    <Button
+        android:id="@+id/attentionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="关注"
+        android:background="@null"
+        android:textColor="@color/color_yellow_dark"
+        />
+</RelativeLayout>

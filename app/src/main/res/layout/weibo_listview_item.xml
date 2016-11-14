@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/selector">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/weibo_list_padding">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/profileImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            fresco:placeholderImage="@drawable/default_img"
+            fresco:roundAsCircle="true"/>
+
+        <TextView
+            android:id="@+id/usName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/profileImg"
+            android:text="usName"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/weibo_text_size"
+            android:paddingLeft="@dimen/weibo_list_padding"/>
+
+        <TextView
+            android:id="@+id/createdAtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="createdAtTime" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/weiboText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/weibo_list_padding"
+        android:paddingRight="@dimen/weibo_list_padding"
+        android:paddingBottom="@dimen/weibo_list_padding"
+        android:text="weiboText"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/weibo_text_size" />
+
+    <com.microwei.easyweibo.view.customview.CustomLine
+        android:id="@+id/customLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:paddingLeft="@dimen/weibo_list_padding"
+        android:paddingRight="@dimen/weibo_list_padding" />
+
+    <TextView
+        android:id="@+id/retweetedWeiboText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/weibo_list_padding"
+        android:text="retweetedWeiboText"
+        android:textColor="@color/color_black" />
+
+    <com.microwei.easyweibo.view.customview.CustomGridView
+        android:id="@+id/mGridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="1dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="1dp"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/weibo_list_padding"
+        android:paddingTop="@dimen/weibo_list_padding">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/shareNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/share_normal"
+                android:gravity="center_vertical"
+                android:text="0" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/commentNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/comment_normal"
+                android:gravity="center_vertical"
+                android:text="0" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/favoriteNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/favorite_normal"
+                android:gravity="center_vertical"
+                android:text="0" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

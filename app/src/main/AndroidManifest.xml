@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.microwei.easyweibo"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:name="com.microwei.easyweibo.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="易微博"
+        android:supportsRtl="true"
+        >
+        <activity
+            android:name="com.microwei.easyweibo.view.activity.MainActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/ActivityTheme"/>
+        <activity
+            android:name="com.microwei.easyweibo.view.activity.ShowLageImgActivity"
+            android:theme="@style/FullscreenTheme"
+            android:hardwareAccelerated="true"/>
+        <activity
+            android:name="com.microwei.easyweibo.view.activity.WeiboDetaiActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@style/ActivityTheme"/>
+        <activity android:name="com.microwei.easyweibo.view.activity.PersonalHomePageActivity"
+                  android:theme="@style/ActivityTheme"/>
+        <activity android:name="com.microwei.easyweibo.view.activity.SendCommentActivity"
+                  android:theme="@style/ActivityTheme"/>
+        <activity android:name="com.microwei.easyweibo.view.activity.FansActivity"
+                  android:theme="@style/ActivityTheme">
+        </activity>
+        <activity android:name="com.microwei.easyweibo.view.activity.AttentionsActivity"
+                  android:theme="@style/ActivityTheme">
+        </activity>
+        <activity android:name="com.microwei.easyweibo.view.activity.SendWeiboActivity"
+                  android:theme="@style/ActivityTheme">
+        </activity>
+        <activity android:name="com.microwei.easyweibo.view.activity.SearchInfoActivity"
+                  android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name="com.microwei.easyweibo.view.activity.SlideActivity"
+            android:label="@string/title_activity_slide"
+            android:theme="@style/AppTheme">
+        </activity>
+    </application>
+
+</manifest>
