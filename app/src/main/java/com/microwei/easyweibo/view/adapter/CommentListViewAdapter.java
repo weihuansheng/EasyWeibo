@@ -11,7 +11,7 @@ import com.microwei.easyweibo.R;
 import com.microwei.easyweibo.model.CommentEntity;
 import com.microwei.easyweibo.model.UserEntity;
 import com.microwei.easyweibo.view.customview.CustomListView;
-import com.microwei.easyweibo.view.customview.ListViewOnItemClickListener;
+import com.microwei.easyweibo.view.ListViewOnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,15 +1,14 @@
-package com.microwei.easyweibo.view.fragment;
+package com.microwei.easyweibo.view;
 
 import android.content.Context;
 import android.content.Intent;
 
 import com.microwei.easyweibo.constants.MyKey;
 import com.microwei.easyweibo.model.WeiboContentEntity;
-import com.microwei.easyweibo.view.activity.SendCommentActivity;
 import com.microwei.easyweibo.view.activity.PersonalHomePageActivity;
+import com.microwei.easyweibo.view.activity.SendCommentActivity;
 import com.microwei.easyweibo.view.activity.ShowLageImgActivity;
 import com.microwei.easyweibo.view.activity.WeiboDetaiActivity;
-import com.microwei.easyweibo.view.customview.ListViewOnItemClickListener;
 
 import java.util.ArrayList;
 

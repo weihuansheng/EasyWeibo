@@ -5,6 +5,7 @@ import com.microwei.easyweibo.model.net.RequestParams;
 import com.microwei.easyweibo.model.net.UserWeiboListRequestParams;
 import com.microwei.easyweibo.presenter.ListFragmentPresenter;
 import com.microwei.easyweibo.presenter.UserWeiboListFragmentPresenter;
+import com.microwei.easyweibo.view.WeiboListViewOnItemClickListenerImpl;
 import com.microwei.easyweibo.view.adapter.AbsListViewAdapter;
 import com.microwei.easyweibo.view.adapter.WeiboListViewAdapter;
 import com.microwei.easyweibo.view.customview.CustomListView;

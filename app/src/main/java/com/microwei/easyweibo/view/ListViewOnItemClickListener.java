@@ -1,6 +1,7 @@
-package com.microwei.easyweibo.view.customview;
+package com.microwei.easyweibo.view;
 
 import com.microwei.easyweibo.model.WeiboContentEntity;
+import com.microwei.easyweibo.view.customview.CustomListView;
 
 import java.util.ArrayList;
 
