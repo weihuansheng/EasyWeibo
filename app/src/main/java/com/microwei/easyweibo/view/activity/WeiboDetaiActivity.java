@@ -22,7 +22,7 @@ public class WeiboDetaiActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             weiboId = intent.getLongExtra(MyKey.KEY_ID, 0);
-            jsonStringArrayList = intent.getParcelableArrayListExtra(MyKey.KEY_JSON_STRING_ARRAY_LIST);
+            jsonStringArrayList = intent.getParcelableArrayListExtra(MyKey.KEY_WEIBO_CONTENT_ENTITY_LIST);
             weiboPosition = intent.getIntExtra(MyKey.KEY_POSITION, 0);
             WeiboDetailFragment weiboDetailFragment = new WeiboDetailFragment();
             weiboDetailFragment.setWeiboId(weiboId);

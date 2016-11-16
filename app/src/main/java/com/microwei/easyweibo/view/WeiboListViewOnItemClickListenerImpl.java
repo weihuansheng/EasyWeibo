@@ -28,10 +28,10 @@ public class WeiboListViewOnItemClickListenerImpl implements ListViewOnItemClick
     }
 
     @Override
-    public void weiboContentOnclick(long weiboId, ArrayList<WeiboContentEntity> jsonStringArrayList, int weiboPosition) {
+    public void weiboContentOnclick(long weiboId, ArrayList<WeiboContentEntity> weiboContentEntityList, int weiboPosition) {
         Intent intent=new Intent(mContext, WeiboDetaiActivity.class);
         intent.putExtra(MyKey.KEY_ID,weiboId);
-        intent.putParcelableArrayListExtra(MyKey.KEY_JSON_STRING_ARRAY_LIST, jsonStringArrayList);
+        intent.putParcelableArrayListExtra(MyKey.KEY_WEIBO_CONTENT_ENTITY_LIST, weiboContentEntityList);
         intent.putExtra(MyKey.KEY_POSITION,weiboPosition);
         mContext.startActivity(intent);
     }

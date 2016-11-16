@@ -8,9 +8,9 @@ import com.microwei.easyweibo.view.fragment.ListFragment;
 /**
  * Created by Administrator on 2016-11-12 .
  */
-public class HomePageFragmentPresenter extends AbsListFragmentPresenter<WeiboContentEntity>{
+public class FriendWeiboListFragmentPresenter extends AbsListFragmentPresenter<WeiboContentEntity>{
     private ListFragment<WeiboContentEntity> mListFragment;
-    public HomePageFragmentPresenter(ListFragment<WeiboContentEntity> listFragment){
+    public FriendWeiboListFragmentPresenter(ListFragment<WeiboContentEntity> listFragment){
         mListFragment=listFragment;
     }
     @Override
