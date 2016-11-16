@@ -19,11 +19,6 @@ import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-/**
- * 流程控制的比较严谨，比如setup函数的使用
- * updateShaderMatrix保证图片损失度最小和始终绘制图片正中央的那部分
- * 作者思路是画圆用渲染器位图填充，而不是把Bitmap重绘切割成一个圆形图片。
- */
 public class CustomCircleImageView extends ImageView {
     //缩放类型
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
@@ -74,24 +69,12 @@ public class CustomCircleImageView extends ImageView {
      */
     public CustomCircleImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        //通过obtainStyledAttributes 获得一组值赋给 TypedArray（数组） , 这一组值来自于res/values/attrs.xml中的name="CircleImageView"的declare-styleable中。
-//        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0);
-//        //通过TypedArray提供的一系列方法getXXXX取得我们在xml里定义的参数值；
-//        // 获取边界的宽度
-//        mBorderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_border_width, DEFAULT_BORDER_WIDTH);
-//        // 获取边界的颜色
-//        mBorderColor = a.getColor(R.styleable.CircleImageView_border_color, DEFAULT_BORDER_COLOR);
-//        mBorderOverlay = a.getBoolean(R.styleable.CircleImageView_border_overlay, DEFAULT_BORDER_OVERLAY);
-//        //调用 recycle() 回收TypedArray,以便后面重用
-//        a.recycle();
-//        System.out.println("CircleImageView -- 构造函数");
         init();
     }
     /**
      * 作用就是保证第一次执行setup函数里下面代码要在构造函数执行完毕时调用
      */
     private void init() {
-        //在这里ScaleType被强制设定为CENTER_CROP，就是将图片水平垂直居中，进行缩放。
         super.setScaleType(SCALE_TYPE);
         mReady = true;
 
@@ -205,7 +188,6 @@ public class CustomCircleImageView extends ImageView {
     public void setImageDrawable(Drawable drawable) {
         super.setImageDrawable(drawable);
         mBitmap = getBitmapFromDrawable(drawable);
-        System.out.println("setImageDrawable -- setup");
         setup();
     }
 
@@ -244,7 +226,6 @@ public class CustomCircleImageView extends ImageView {
         }
 
         if (drawable instanceof BitmapDrawable) {
-            //通常来说 我们的代码就是执行到这里就返回了。返回的就是我们最原始的bitmap
             return ((BitmapDrawable) drawable).getBitmap();
         }
 
@@ -254,7 +235,6 @@ public class CustomCircleImageView extends ImageView {
             if (drawable instanceof ColorDrawable) {
                 bitmap = Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION, BITMAP_CONFIG);
             } else {
-                //bitmap=Bitmap.createBitmap(drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight(),BITMAP_CONFIG);
                 bitmap = Bitmap.createBitmap(100, 100, BITMAP_CONFIG);
             }
 
@@ -272,46 +252,30 @@ public class CustomCircleImageView extends ImageView {
      * 以及调用updateShaderMatrix()函数和 invalidate()函数；
      */
     private void setup() {
-        //因为mReady默认值为false,所以第一次进这个函数的时候if语句为真进入括号体内
-        //设置mSetupPending为true然后直接返回，后面的代码并没有执行。
         if (!mReady) {
             mSetupPending = true;
             return;
         }
-        //防止空指针异常
         if (mBitmap == null) {
             return;
         }
-        // 构建渲染器，用mBitmap位图来填充绘制区域 ，参数值代表如果图片太小的话 就直接拉伸
         mBitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        // 设置图片画笔反锯齿
         mBitmapPaint.setAntiAlias(true);
-        // 设置图片画笔渲染器
         mBitmapPaint.setShader(mBitmapShader);
-        // 设置边界画笔样式
-        mBorderPaint.setStyle(Paint.Style.STROKE);//设画笔为空心
+        mBorderPaint.setStyle(Paint.Style.STROKE);
         mBorderPaint.setAntiAlias(true);
-        mBorderPaint.setColor(mBorderColor);    //画笔颜色
-        mBorderPaint.setStrokeWidth(mBorderWidth);//画笔边界宽度
-        //这个地方是取的原图片的宽高
+        mBorderPaint.setColor(mBorderColor);
+        mBorderPaint.setStrokeWidth(mBorderWidth);
         mBitmapHeight = mBitmap.getHeight();
         mBitmapWidth = mBitmap.getWidth();
-        // 设置含边界显示区域，取的是CircleImageView的布局实际大小，为方形，查看xml也就是160dp(240px)  getWidth得到是某个view的实际尺寸
         mBorderRect.set(0, 0, getWidth(), getHeight());
-        //计算 圆形带边界部分（外圆）的最小半径，取mBorderRect的宽高减去一个边缘大小的一半的较小值（这个地方我比较纳闷为什么求外圆半径需要先减去一个边缘大小）
         mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2, (mBorderRect.width() - mBorderWidth) / 2);
-        // 初始图片显示区域为mBorderRect（CircleImageView的布局实际大小）
         mDrawableRect.set(mBorderRect);
         if (!mBorderOverlay) {
-            //demo里始终执行
-            //通过inset方法  使得图片显示的区域从mBorderRect大小上下左右内移边界的宽度形成区域，查看xml边界宽度为2dp（3px）,所以方形边长为就是160-4=156dp(234px)
             mDrawableRect.inset(mBorderWidth, mBorderWidth);
         }
-        //这里计算的是内圆的最小半径，也即去除边界宽度的半径
         mDrawableRadius = Math.min(mDrawableRect.height() / 2, mDrawableRect.width() / 2);
-        //设置渲染器的变换矩阵也即是mBitmap用何种缩放形式填充
         updateShaderMatrix();
-        //手动触发ondraw()函数 完成最终的绘制
         invalidate();
     }
     /**
@@ -324,22 +288,15 @@ public class CustomCircleImageView extends ImageView {
         float dy = 0;
 
         mShaderMatrix.set(null);
-        // 这里不好理解 这个不等式也就是(mBitmapWidth / mDrawableRect.width()) > (mBitmapHeight / mDrawableRect.height())
-        //取最小的缩放比例
         if (mBitmapWidth * mDrawableRect.height() > mDrawableRect.width() * mBitmapHeight) {
-            //y轴缩放 x轴平移 使得图片的y轴方向的边的尺寸缩放到图片显示区域（mDrawableRect）一样）
             scale = mDrawableRect.height() / (float) mBitmapHeight;
             dx = (mDrawableRect.width() - mBitmapWidth * scale) * 0.5f;
         } else {
-            //x轴缩放 y轴平移 使得图片的x轴方向的边的尺寸缩放到图片显示区域（mDrawableRect）一样）
             scale = mDrawableRect.width() / (float) mBitmapWidth;
             dy = (mDrawableRect.height() - mBitmapHeight * scale) * 0.5f;
         }
-        // shaeder的变换矩阵，我们这里主要用于放大或者缩小。
         mShaderMatrix.setScale(scale, scale);
-        // 平移
         mShaderMatrix.postTranslate((int) (dx + 0.5f) + mDrawableRect.left, (int) (dy + 0.5f) + mDrawableRect.top);
-        // 设置变换矩阵
         mBitmapShader.setLocalMatrix(mShaderMatrix);
     }
 
