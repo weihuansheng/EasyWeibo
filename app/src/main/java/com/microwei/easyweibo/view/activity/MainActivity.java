@@ -3,20 +3,18 @@ package com.microwei.easyweibo.view.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.microwei.easyweibo.R;
 import com.microwei.easyweibo.constants.MyAuthoInfo;
 import com.microwei.easyweibo.model.MySharedPrefence;
-import com.microwei.easyweibo.view.fragment.PublicWeiboListFragment;
 import com.microwei.easyweibo.view.fragment.FriendWeiboListFragment;
 import com.microwei.easyweibo.view.fragment.PersonFragment;
+import com.microwei.easyweibo.view.fragment.PublicWeiboListFragment;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
@@ -32,17 +30,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private SsoHandler mSsoHandler;
 
-    private static final int TAB_BUTTON_CHECK = 1;
-    private static final int TAB_BUTTON_UNCHECK = 0;
     private View tabHomePage;
+    private View tabDiscover;
     private View tabPerson;
-    private View tabSearch;
-    private ImageView imgHomePage;
-    private ImageView imgPerson;
-    private ImageView imgSearch;
-    private TextView textHomePage;
-    private TextView textPerson;
-    private TextView textSearch;
 
     private TextView topTextView;
     private TextView topButtonSearch;
@@ -56,11 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_home);
+        setContentView(R.layout.activity_main);
         login();
         initActivity();
         initView();
-        updateTabBk(TAB_BUTTON_CHECK, TAB_BUTTON_UNCHECK, TAB_BUTTON_UNCHECK);
         fragmentManager.beginTransaction().replace(R.id.activityMainFrame, homePageFragment)
                 .commit();
     }
@@ -98,80 +87,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         tabHomePage = findViewById(R.id.tabHomePage);
+        tabDiscover = findViewById(R.id.tabDiscover);
         tabPerson = findViewById(R.id.tabPerson);
-        tabSearch = findViewById(R.id.tabSearch);
-        imgHomePage = (ImageView) findViewById(R.id.imgHomePage);
-        imgPerson = (ImageView) findViewById(R.id.imgPerson);
-        imgSearch = (ImageView) findViewById(R.id.imgSearch);
-        textHomePage = (TextView) findViewById(R.id.textHomePage);
-        textPerson = (TextView) findViewById(R.id.textPerson);
-        textSearch = (TextView) findViewById(R.id.textSearch);
 
         topTextView = (TextView) findViewById(R.id.topTextView);
         topButtonSearch = (TextView) findViewById(R.id.topButtonSearch);
         topButtonSendWeibo = (TextView) findViewById(R.id.topButtonSendWeibo);
 
         tabHomePage.setOnClickListener(this);
+        tabDiscover.setOnClickListener(this);
         tabPerson.setOnClickListener(this);
-        tabSearch.setOnClickListener(this);
         topButtonSearch.setOnClickListener(this);
         topButtonSendWeibo.setOnClickListener(this);
-    }
 
-    private void updateTabBk(int buttonHomePageFlag, int buttonShopCarFlag, int buttonPersonFlag) {
-        if (buttonHomePageFlag == TAB_BUTTON_CHECK) {
-            imgHomePage.setBackgroundResource(R.drawable.main_tab_home_page_selected);
-            textHomePage.setTextColor(getResources().getColor(R.color.color_yellow_dark));
-        } else {
-            imgHomePage.setBackgroundResource(R.drawable.main_tab_home_page);
-            textHomePage.setTextColor(Color.GRAY);
-        }
-        if (buttonShopCarFlag == TAB_BUTTON_CHECK) {
-            imgPerson.setBackgroundResource(R.drawable.main_tab_person_selected);
-            textPerson.setTextColor(getResources().getColor(R.color.color_yellow_dark));
-        } else {
-            imgPerson.setBackgroundResource(R.drawable.main_tab_person);
-            textPerson.setTextColor(Color.GRAY);
-        }
-        if (buttonPersonFlag == TAB_BUTTON_CHECK) {
-            imgSearch.setBackgroundResource(R.drawable.main_tab_search_selected);
-            textSearch.setTextColor(getResources().getColor(R.color.color_yellow_dark));
-        } else {
-            imgSearch.setBackgroundResource(R.drawable.main_tab_search);
-            textSearch.setTextColor(Color.GRAY);
-        }
+        resetTabState();
+        tabHomePage.setSelected(true);
     }
-
+   private void resetTabState(){
+       tabHomePage.setSelected(false);
+       tabDiscover.setSelected(false);
+       tabHomePage.setSelected(false);
+   }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tabHomePage:
                 fragmentManager.beginTransaction().replace(R.id.activityMainFrame, homePageFragment)
                         .commit();
-                updateTabBk(TAB_BUTTON_CHECK, TAB_BUTTON_UNCHECK, TAB_BUTTON_UNCHECK);
                 topTextView.setVisibility(View.VISIBLE);
                 topTextView.setText("首页");
                 topButtonSearch.setVisibility(View.GONE);
                 topButtonSendWeibo.setVisibility(View.VISIBLE);
+                resetTabState();
+                tabHomePage.setSelected(true);
                 break;
             case R.id.tabPerson:
                 fragmentManager.beginTransaction()
                         .replace(R.id.activityMainFrame, personFragment)
                         .commit();
-                updateTabBk(TAB_BUTTON_UNCHECK, TAB_BUTTON_CHECK, TAB_BUTTON_UNCHECK);
                 topTextView.setVisibility(View.VISIBLE);
                 topTextView.setText("我的");
                 topButtonSearch.setVisibility(View.GONE);
                 topButtonSendWeibo.setVisibility(View.GONE);
+                resetTabState();
+                tabPerson.setSelected(true);
                 break;
-            case R.id.tabSearch:
+            case R.id.tabDiscover:
                 fragmentManager.beginTransaction()
                         .replace(R.id.activityMainFrame, discoverFragment)
                         .commit();
-                updateTabBk(TAB_BUTTON_UNCHECK, TAB_BUTTON_UNCHECK, TAB_BUTTON_CHECK);
                 topTextView.setVisibility(View.GONE);
                 topButtonSearch.setVisibility(View.VISIBLE);
                 topButtonSendWeibo.setVisibility(View.GONE);
+                resetTabState();
+                tabDiscover.setSelected(true);
                 break;
             case R.id.topButtonSearch:
                 Intent intentStartSearchInfoActitity = new Intent(MainActivity.this, SearchInfoActivity.class);

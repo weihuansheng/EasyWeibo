@@ -21,19 +21,20 @@ public abstract class AbsListFragmentPresenter<T> implements ListFragmentPresent
     private ListFragment<T> mListFragment;
     private Request mRequest;
     private Class<T> mEntityClass;
-
+    private RequestPoolExecutor mRequestPoolExecutor;
     @Override
     public void start() {
         mListFragment=getListFragment();
         mRequest=getRequest();
         mEntityClass=getEntityClass();
+        mRequestPoolExecutor=RequestPoolExecutor.newInstance();
     }
 
     @Override
     public void loadList(RequestParams requestParams) {
         mListFragment.showLoading();
         mRequest.setRequestParams(requestParams);
-        RequestPoolExecutor.newInstance().addRequest(mRequest, new ResponseListener() {
+        mRequestPoolExecutor.performRequest(mRequest, new ResponseListener() {
             @Override
             public void onResponseSuccess(String response) {
                 List<T> listEntity=castResponseToList(response);
@@ -55,7 +56,7 @@ public abstract class AbsListFragmentPresenter<T> implements ListFragmentPresent
     @Override
     public void loadMoreList(RequestParams requestParams ) {
         mRequest.setRequestParams(requestParams);
-        RequestPoolExecutor.newInstance().addRequest(mRequest, new ResponseListener() {
+        RequestPoolExecutor.newInstance().performRequest(mRequest, new ResponseListener() {
             @Override
             public void onResponseSuccess(String response) {
                 List<T> listEntity=castResponseToList(response);
@@ -89,6 +90,7 @@ public abstract class AbsListFragmentPresenter<T> implements ListFragmentPresent
     @Override
     public void detachView() {
         mListFragment=null;
+        mRequestPoolExecutor.cancelAllRequests();
     }
     protected abstract ListFragment<T> getListFragment();
     protected abstract Request getRequest();

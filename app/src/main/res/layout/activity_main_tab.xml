@@ -4,67 +4,32 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_rectangle"
     >
-
-    <LinearLayout
+    <TextView
         android:id="@+id/tabHomePage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:text="首页"
+        android:textColor="@drawable/selector_bottom_homepage_tab_text"
         android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imgHomePage"
-            android:layout_width="@dimen/activity_main_tab_dimen"
-            android:layout_height="@dimen/activity_main_tab_dimen"
-            />
-
-        <TextView
-            android:id="@+id/textHomePage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="首页"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/tabSearch"
+        android:drawableTop="@drawable/selector_bottom_homepage_tab_img"
+        />
+    <TextView
+        android:id="@+id/tabDiscover"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:text="发现"
+        android:textColor="@drawable/selector_bottom_discover_tab_text"
         android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imgSearch"
-            android:layout_width="@dimen/activity_main_tab_dimen"
-            android:layout_height="@dimen/activity_main_tab_dimen"
-            />
-
-        <TextView
-            android:id="@+id/textSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="发现"/>
-    </LinearLayout>
-
-    <LinearLayout
+        android:drawableTop="@drawable/selector_bottom_discover_tab_img"/>
+    <TextView
         android:id="@+id/tabPerson"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:text="我的"
+        android:textColor="@drawable/selector_bottom_person_tab_text"
         android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imgPerson"
-            android:layout_width="@dimen/activity_main_tab_dimen"
-            android:layout_height="@dimen/activity_main_tab_dimen"
-            />
-
-        <TextView
-            android:id="@+id/textPerson"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的"/>
-    </LinearLayout>
+        android:drawableTop="@drawable/selector_bottom_person_tab_img"/>
 </LinearLayout>

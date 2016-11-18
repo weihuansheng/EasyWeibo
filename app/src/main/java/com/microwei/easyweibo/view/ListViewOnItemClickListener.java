@@ -8,11 +8,11 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016-04-14 .
  */
-public class ListViewOnItemClickListener {
+public interface ListViewOnItemClickListener {
     public interface WeiboListViewOnItemClickListener extends CustomListView.BaseListViewOnItemClickListener {
         void usOnclick(long uId);
 
-        void weiboContentOnclick(long weiboId,ArrayList<WeiboContentEntity> jsonStringArrayList,int weiboPosition);
+        void weiboContentOnclick(long weiboId,ArrayList<WeiboContentEntity> weiboContentEntityList,int weiboPosition);
 
         void weiboImgOnclick(ArrayList<String> largePicUrls, int imgPosition);
 

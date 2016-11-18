@@ -27,16 +27,19 @@ public class RequestPoolExecutor {
         private static RequestPoolExecutor sRequestPoolExecutor = new RequestPoolExecutor();
     }
 
-    public void addRequest(Request request, ResponseListener responseListener) {
+    public void performRequest(Request request, ResponseListener responseListener) {
         if (request != null && responseListener != null) {
             if (request.getRequestMethod() == Request.METHOD_GET)
-                addGetRequest(request, responseListener);
+                performGetRequest(request, responseListener);
             if (request.getRequestMethod() == Request.METHOD_POST)
-                addPostRequest(request, responseListener);
+                performPostRequest(request, responseListener);
         }
     }
-
-    public void addGetRequest(Request getRequest, final ResponseListener responseListener) {
+    public void cancelAllRequests(){
+        requestQueue.cancelAll("GET");
+        requestQueue.cancelAll("POST");
+    }
+    public void performGetRequest(Request getRequest, final ResponseListener responseListener) {
         if (getRequest != null && responseListener != null) {
             StringRequest stringRequest = new StringRequest(getRequest.getActualUrl(), new Response.Listener<String>() {
                 @Override
@@ -49,11 +52,12 @@ public class RequestPoolExecutor {
                     responseListener.onResponseFail(volleyError);
                 }
             });
+            stringRequest.setTag("GET");
             requestQueue.add(stringRequest);
         }
     }
 
-    public void addPostRequest(final Request postRequest, final ResponseListener responseListener) {
+    public void performPostRequest(final Request postRequest, final ResponseListener responseListener) {
         if (postRequest != null && responseListener != null) {
             StringRequest stringPostRequest = new StringRequest(com.android.volley.Request.Method.POST, postRequest.getActualUrl(), new Response.Listener<String>() {
                 @Override
@@ -71,6 +75,7 @@ public class RequestPoolExecutor {
                     return postRequest.getMapParams();
                 }
             };
+            stringPostRequest.setTag("POST");
             requestQueue.add(stringPostRequest);
         }
     }
