@@ -10,6 +10,7 @@ import com.microwei.easyweibo.MyApplication;
 import com.microwei.easyweibo.R;
 import com.microwei.easyweibo.model.CommentEntity;
 import com.microwei.easyweibo.model.UserEntity;
+import com.microwei.easyweibo.util.TextViewHelper;
 import com.microwei.easyweibo.view.customview.CustomListView;
 import com.microwei.easyweibo.view.ListViewOnItemClickListener;
 
@@ -19,18 +20,20 @@ import java.util.List;
 /**
  * Created by Administrator on 2016-05-08 .
  */
-public class CommentListViewAdapter extends AbsListViewAdapter<CommentEntity>{
+public class CommentListViewAdapter extends AbsListViewAdapter<CommentEntity> {
     private ArrayList<CommentEntity> mCommentEntityArrayList;
     private ListViewOnItemClickListener.CommentListViewOnItemClickListener commentListViewOnItemClickListner;
 
-    private static class ViewHolder{
-        public SimpleDraweeView commentUsImg;
-        public TextView commentUsName;
-        public TextView commentCreatedAtTime;
-        public TextView commentText;
+    private static class ViewHolder {
+        SimpleDraweeView commentUsImg;
+        TextView commentUsName;
+        TextView commentCreatedAtTime;
+        TextView commentText;
+        TextViewHelper textViewHelper;
     }
-    public CommentListViewAdapter(){
-        mCommentEntityArrayList =new ArrayList<>();
+
+    public CommentListViewAdapter() {
+        mCommentEntityArrayList = new ArrayList<>();
     }
 
     @Override
@@ -45,8 +48,8 @@ public class CommentListViewAdapter extends AbsListViewAdapter<CommentEntity>{
 
     @Override
     public void setListViewOnItemListener(CustomListView.BaseListViewOnItemClickListener listener) {
-        if(listener instanceof ListViewOnItemClickListener.CommentListViewOnItemClickListener){
-            commentListViewOnItemClickListner=(ListViewOnItemClickListener.CommentListViewOnItemClickListener)listener;
+        if (listener instanceof ListViewOnItemClickListener.CommentListViewOnItemClickListener) {
+            commentListViewOnItemClickListner = (ListViewOnItemClickListener.CommentListViewOnItemClickListener) listener;
         }
     }
 
@@ -68,25 +71,26 @@ public class CommentListViewAdapter extends AbsListViewAdapter<CommentEntity>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        if(convertView==null){
-            convertView= LayoutInflater.from(MyApplication.getmContext())
-                    .inflate(R.layout.comment_listview_item,null);
-            viewHolder=new ViewHolder();
-            viewHolder.commentUsImg=(SimpleDraweeView)convertView.findViewById(R.id.commentUsImg);
-            viewHolder.commentUsName=(TextView)convertView.findViewById(R.id.commentUsName);
-            viewHolder.commentCreatedAtTime=(TextView)convertView.findViewById(R.id.commentCreatedAtTime);
-            viewHolder.commentText=(TextView)convertView.findViewById(R.id.commentText);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(MyApplication.getmContext())
+                    .inflate(R.layout.comment_listview_item, null);
+            viewHolder = new ViewHolder();
+            viewHolder.commentUsImg = (SimpleDraweeView) convertView.findViewById(R.id.commentUsImg);
+            viewHolder.commentUsName = (TextView) convertView.findViewById(R.id.commentUsName);
+            viewHolder.commentCreatedAtTime = (TextView) convertView.findViewById(R.id.commentCreatedAtTime);
+            viewHolder.commentText = (TextView) convertView.findViewById(R.id.commentText);
+            viewHolder.textViewHelper=TextViewHelper.newInstance();
             convertView.setTag(viewHolder);
-        }
-        else {
-            viewHolder= (ViewHolder) convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         CommentEntity commentEntity = mCommentEntityArrayList.get(position);
         UserEntity userEntity = commentEntity.mUserEntity;
         viewHolder.commentUsImg.setImageURI(userEntity.profile_image_url);
         viewHolder.commentUsName.setText(userEntity.screen_name);
         viewHolder.commentCreatedAtTime.setText(commentEntity.created_at);
-        viewHolder.commentText.setText(commentEntity.text);
+//        viewHolder.commentText.setText(commentEntity.text);
+        viewHolder.textViewHelper.showTextBySpan(viewHolder.commentText,commentEntity.text);
         return convertView;
     }
 }

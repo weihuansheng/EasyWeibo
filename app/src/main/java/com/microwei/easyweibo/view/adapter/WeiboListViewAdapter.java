@@ -12,8 +12,9 @@ import com.microwei.easyweibo.MyApplication;
 import com.microwei.easyweibo.R;
 import com.microwei.easyweibo.model.UserEntity;
 import com.microwei.easyweibo.model.WeiboContentEntity;
-import com.microwei.easyweibo.view.customview.CustomListView;
+import com.microwei.easyweibo.util.TextViewHelper;
 import com.microwei.easyweibo.view.ListViewOnItemClickListener;
+import com.microwei.easyweibo.view.customview.CustomListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016-11-12 .
  */
-public class WeiboListViewAdapter extends AbsListViewAdapter<WeiboContentEntity>{
+public class WeiboListViewAdapter extends AbsListViewAdapter<WeiboContentEntity> {
     private ArrayList<WeiboContentEntity> mWeiboContentEntityArrayList;
     private ViewHolder viewHolder;
 
@@ -43,23 +44,25 @@ public class WeiboListViewAdapter extends AbsListViewAdapter<WeiboContentEntity>
 
     @Override
     public void setListViewOnItemListener(CustomListView.BaseListViewOnItemClickListener listener) {
-        if(listener instanceof ListViewOnItemClickListener.WeiboListViewOnItemClickListener) {
+        if (listener instanceof ListViewOnItemClickListener.WeiboListViewOnItemClickListener) {
             weiboListViewOnItemClickListener = (ListViewOnItemClickListener.WeiboListViewOnItemClickListener) listener;
         }
     }
+
     private static class ViewHolder {
-        public View rootView;
-        public SimpleDraweeView profileImg;
-        public TextView usName;
-        public TextView createdAtTime;
-        public TextView weiboText;
-        public View customLine;
-        public TextView retweetedWeiboText;
-        public GridView mImageGridView;
-        public TextView shareNum;
-        public TextView commentNum;
-        public TextView favoriteNum;
-        public ImageGridViewAdapter mImageGridViewAdpter;
+        View rootView;
+        SimpleDraweeView profileImg;
+        TextView usName;
+        TextView createdAtTime;
+        TextView weiboText;
+        View customLine;
+        TextView retweetedWeiboText;
+        GridView mImageGridView;
+        TextView shareNum;
+        TextView commentNum;
+        TextView favoriteNum;
+        ImageGridViewAdapter mImageGridViewAdpter;
+        TextViewHelper textViewHelper;
     }
 
     @Override
@@ -82,7 +85,7 @@ public class WeiboListViewAdapter extends AbsListViewAdapter<WeiboContentEntity>
         if (convertView == null) {
             convertView = LayoutInflater.from(MyApplication.getmContext()).inflate(R.layout.weibo_listview_item, null);
             viewHolder = new ViewHolder();
-            viewHolder.rootView=convertView.findViewById(R.id.rootView);
+            viewHolder.rootView = convertView.findViewById(R.id.rootView);
             viewHolder.profileImg = (SimpleDraweeView) convertView.findViewById(R.id.profileImg);
             viewHolder.usName = (TextView) convertView.findViewById(R.id.usName);
             viewHolder.createdAtTime = (TextView) convertView.findViewById(R.id.createdAtTime);
@@ -94,6 +97,7 @@ public class WeiboListViewAdapter extends AbsListViewAdapter<WeiboContentEntity>
             viewHolder.commentNum = (TextView) convertView.findViewById(R.id.commentNum);
             viewHolder.favoriteNum = (TextView) convertView.findViewById(R.id.favoriteNum);
             viewHolder.mImageGridViewAdpter = new ImageGridViewAdapter();
+            viewHolder.textViewHelper=TextViewHelper.newInstance();
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -104,23 +108,25 @@ public class WeiboListViewAdapter extends AbsListViewAdapter<WeiboContentEntity>
         viewHolder.profileImg.setImageURI(userEntity.profile_image_url);
         viewHolder.usName.setText(userEntity.screen_name);
         viewHolder.createdAtTime.setText(weiboContentEntity.created_at);
-        viewHolder.weiboText.setText(weiboContentEntity.text);
+//        viewHolder.weiboText.setText(weiboContentEntity.text);
+        viewHolder.textViewHelper.showTextBySpan(viewHolder.weiboText,weiboContentEntity.text);
         final ArrayList<String> picUrls = new ArrayList<>();
-        weiboContentEntity.pic_urls= weiboContentEntity.middle_pic_urls;
+        weiboContentEntity.pic_urls = weiboContentEntity.middle_pic_urls;
         picUrls.addAll(weiboContentEntity.pic_urls);
         final ArrayList<String> largePicUrls = new ArrayList<>();
         largePicUrls.addAll(weiboContentEntity.large_pic_urls);
         if (retweetedWeibo != null) {
             viewHolder.customLine.setVisibility(View.VISIBLE);
             viewHolder.retweetedWeiboText.setVisibility(View.VISIBLE);
-            viewHolder.retweetedWeiboText.setText(retweetedWeibo.text);
+//            viewHolder.retweetedWeiboText.setText(retweetedWeibo.text);
+            viewHolder.textViewHelper.showTextBySpan(viewHolder.retweetedWeiboText,retweetedWeibo.text);
             picUrls.addAll(retweetedWeibo.pic_urls);
             largePicUrls.addAll(retweetedWeibo.large_pic_urls);
         } else {
             viewHolder.customLine.setVisibility(View.GONE);
             viewHolder.retweetedWeiboText.setVisibility(View.GONE);
         }
-        if(!isScroll()){
+        if (!isScroll()) {
             viewHolder.mImageGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int imgPosition, long id) {
@@ -132,7 +138,7 @@ public class WeiboListViewAdapter extends AbsListViewAdapter<WeiboContentEntity>
                 public void onClick(View v) {
                     switch (v.getId()) {
                         case R.id.rootView:
-                            weiboListViewOnItemClickListener.weiboContentOnclick(weiboContentEntity.id,mWeiboContentEntityArrayList,position);
+                            weiboListViewOnItemClickListener.weiboContentOnclick(weiboContentEntity.id, mWeiboContentEntityArrayList, position);
                             break;
                         case R.id.profileImg:
                             weiboListViewOnItemClickListener.usOnclick(userEntity.id);

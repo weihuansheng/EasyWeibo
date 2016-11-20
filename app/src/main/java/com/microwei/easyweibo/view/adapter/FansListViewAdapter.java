@@ -22,9 +22,9 @@ public class FansListViewAdapter extends AbsListViewAdapter<UserEntity> {
     private ArrayList<UserEntity> fansInfoList;
 
     private static class ViewHolder {
-        private SimpleDraweeView fansProfileImg;
-        private TextView fansName;
-        private Button attentionButton;
+        SimpleDraweeView fansProfileImg;
+        TextView fansName;
+        Button attentionButton;
     }
 
     public FansListViewAdapter() {
