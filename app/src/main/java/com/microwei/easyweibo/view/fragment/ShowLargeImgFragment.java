@@ -13,7 +13,7 @@ import com.microwei.easyweibo.R;
 /**
  * Created by Administrator on 2016-05-04 .
  */
-public class ShowLargeImgFragment extends Fragment implements View.OnClickListener{
+public class ShowLargeImgFragment extends Fragment{
     private String largePicUrl;
     public void setLargePicUrl(String largePicUrl){
         this.largePicUrl=largePicUrl;
@@ -29,15 +29,6 @@ public class ShowLargeImgFragment extends Fragment implements View.OnClickListen
         View showLargeImgFragmentView=inflater.inflate(R.layout.fragment_show_large_img, null);
         SimpleDraweeView showLargeImageView=(SimpleDraweeView)showLargeImgFragmentView.findViewById(R.id.showLargeImageView);
         showLargeImageView.setImageURI(largePicUrl);
-        showLargeImageView.setOnClickListener(this);
         return showLargeImgFragmentView;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.showLargeImageView:
-                getActivity().finish();
-        }
     }
 }
